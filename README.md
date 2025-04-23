@@ -167,5 +167,5 @@ O app será aberto automaticamente em `http://localhost:3000`.
 
 ---
 
-Desenvolvido por **Seu Nome**, 2025.
+Desenvolvido por **Eduardo Martins**, 2025.
 
