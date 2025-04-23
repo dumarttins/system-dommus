@@ -43,7 +43,7 @@ dommus-frontend/           # Frontend React
 
 ## 🚀 Tecnologias
 
-- **Backend:** PHP 8.2, Laravel 10, Sanctum, MySQL, Docker (app, db, nginx)
+- **Backend:** PHP 8.2, Laravel 12, Sanctum, MySQL, Docker (app, db, nginx)
 - **Frontend:** React 18, React Router, Axios, Formik, Yup, Bootstrap
 
 ---
@@ -53,8 +53,8 @@ dommus-frontend/           # Frontend React
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/dommus.git
-cd dommus/dommus-api
+git clone https://github.com/dumarttins/system-dommus.git
+cd system-dommus/dommus-api
 ```
 
 ### 2. Backend Laravel (Docker)
@@ -71,12 +71,12 @@ cd dommus/dommus-api
    ```
 2. Suba os containers:
    ```bash
-docker-compose up -d
+    docker-compose up -d
 ```
 3. Instale dependências e crie tabelas:
    ```bash
-docker-compose exec app composer install
-docker-compose exec app php artisan migrate --seed
+    docker-compose exec app composer install
+    docker-compose exec app php artisan migrate --seed
 ```
 4. Verifique rotas disponíveis (opcional):
    ```bash
