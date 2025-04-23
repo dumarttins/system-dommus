@@ -131,8 +131,8 @@ export default function EmpreendimentosPage() {
                   <td>{emp.nome}</td>
                   <td>{emp.cidade}</td>
                   <td>{new Date(emp.previsao_entrega).toLocaleDateString()}</td>
-                  <td>{emp.vgv_vendidas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
-                  <td>{emp.vgv_reservadas.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                  <td>{Number(emp.vgv_vendidas).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                  <td>{Number(emp.vgv_reservadas).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                   <td>{emp.estoque_disponivel}</td>
                   <td>
                     <Button size="sm" as={Link} to={`/empreendimentos/${emp.id}/edit`} className="me-1">✏️</Button>
