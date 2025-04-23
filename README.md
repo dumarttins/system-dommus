@@ -20,7 +20,6 @@ dommus-api/                # Backend Laravel (Docker)
 ├── database/
 │   ├── migrations/
 │   ├── seeders/
-│   └── factories/
 ├── routes/
 │   └── api.php
 ├── docker-compose.yml
