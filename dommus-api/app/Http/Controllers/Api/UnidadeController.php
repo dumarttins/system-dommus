@@ -12,38 +12,52 @@ class UnidadeController extends Controller
     {
         $query = Unidade::query();
 
-        // Filtro por empreendimento
-        if ($request->has('empreendimento_id')) {
-            $query->where('empreendimento_id', $request->empreendimento_id);
+        try {
+            // Filtro por empreendimento
+            if ($request->filled('empreendimento_id') && $request->empreendimento_id !== '') {
+                $query->where('empreendimento_id', (int) $request->empreendimento_id);
+            }
+
+            // Filtro por código
+            if ($request->filled('codigo') && $request->codigo !== '') {
+                $query->where('codigo', 'like', '%' . $request->codigo . '%');
+            }
+
+            // Filtro por faixa de preço
+            if (
+                $request->filled('preco_min') && $request->preco_min !== '' &&
+                $request->filled('preco_max') && $request->preco_max !== ''
+            ) {
+                $query->whereBetween('preco_venda', [$request->preco_min, $request->preco_max]);
+            } elseif ($request->filled('preco_min') && $request->preco_min !== '') {
+                $query->where('preco_venda', '>=', $request->preco_min);
+            } elseif ($request->filled('preco_max') && $request->preco_max !== '') {
+                $query->where('preco_venda', '<=', $request->preco_max);
+            }
+
+            // Filtro por status
+            if ($request->filled('status') && $request->status !== '') {
+                $query->where('status', $request->status);
+            }
+
+            // Filtro por bloco
+            if ($request->filled('bloco') && $request->bloco !== '') {
+                $query->where('bloco', $request->bloco);
+            }
+
+            $unidades = $query->with('empreendimento')->paginate(15);
+
+            info('SQL:', [$query->toSql()]);
+            info('Resultado:', [$unidades]);
+
+            return response()->json($unidades);
+        } catch (\Throwable $th) {
+            info('Erro:', [$th->getMessage()]);
+            return response()->json([
+                'message' => 'Erro ao buscar unidades',
+                'error' => $th->getMessage()
+            ], 500);
         }
-
-        // Filtro por código
-        if ($request->has('codigo')) {
-            $query->where('codigo', 'like', '%' . $request->codigo . '%');
-        }
-
-        // Filtro por faixa de preço
-        if ($request->has('preco_min') && $request->has('preco_max')) {
-            $query->whereBetween('preco_venda', [$request->preco_min, $request->preco_max]);
-        } else if ($request->has('preco_min')) {
-            $query->where('preco_venda', '>=', $request->preco_min);
-        } else if ($request->has('preco_max')) {
-            $query->where('preco_venda', '<=', $request->preco_max);
-        }
-
-        // Filtro por status
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
-        }
-
-        // Filtro por bloco
-        if ($request->has('bloco')) {
-            $query->where('bloco', $request->bloco);
-        }
-
-        $unidades = $query->with('empreendimento')->paginate(15);
-
-        return response()->json($unidades);
     }
 
     public function store(Request $request)
