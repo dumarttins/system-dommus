@@ -72,16 +72,16 @@ cd system-dommus/dommus-api
 2. Suba os containers:
    ```bash
     docker-compose up -d
-```
+    ```
 3. Instale dependências e crie tabelas:
    ```bash
     docker-compose exec app composer install
     docker-compose exec app php artisan migrate --seed
-```
+    ```
 4. Verifique rotas disponíveis (opcional):
    ```bash
-docker-compose exec app php artisan route:list
-```
+    docker-compose exec app php artisan route:list
+    ```
 
 ### 3. Frontend React
 
